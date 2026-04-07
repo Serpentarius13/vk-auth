@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, type FC, useMemo } from "react";
+import { type ReactNode, type FC, useMemo, useState, useEffect } from "react";
 import { CLIENT_ENV } from "../lib/client-env";
 import { LinkButton } from "./shared/LinkButton";
 
@@ -9,9 +9,16 @@ interface Props {
 }
 
 export const YandexOAuthButton: FC<Props> = ({}) => {
-  const redirectUri =
-    (typeof window !== "undefined" ? window.location.origin : "") +
-    "/api/auth/yandex";
+  const [redirectUri, setRedirectUri] = useState("");
+
+  useEffect(() => {
+    if (!redirectUri) {
+      setRedirectUri(
+        (typeof window !== "undefined" ? window.location.origin : "") +
+          "/api/auth/yandex",
+      );
+    }
+  }, []);
 
   const yandexLink = useMemo(() => {
     const link = new URL("https://oauth.yandex.ru/authorize");
@@ -27,7 +34,7 @@ export const YandexOAuthButton: FC<Props> = ({}) => {
     }
 
     return link.toString();
-  }, []);
+  }, [redirectUri]);
 
   return (
     <LinkButton href={yandexLink} className="hover:bg-yellow-50 text-black">
