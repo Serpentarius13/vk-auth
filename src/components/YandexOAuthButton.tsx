@@ -9,15 +9,17 @@ interface Props {
 }
 
 export const YandexOAuthButton: FC<Props> = ({}) => {
+  const redirectUri =
+    (typeof window !== "undefined" ? window.location.origin : "") +
+    "/api/auth/yandex";
+
   const yandexLink = useMemo(() => {
     const link = new URL("https://oauth.yandex.ru/authorize");
 
     const params = {
       client_id: CLIENT_ENV.OAUTH.YANDEX_CLIENT_ID,
       response_type: "code",
-      redirect_uri:
-        (typeof window !== "undefined" ? window.location.origin : "") +
-        "/api/auth/yandex",
+      redirect_uri: redirectUri,
     };
 
     for (const param in params) {
