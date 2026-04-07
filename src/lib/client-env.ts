@@ -1,0 +1,8 @@
+export const CLIENT_ENV = {
+  OAUTH: {
+    YANDEX_CLIENT_ID: process.env.NEXT_PUBLIC_OAUTH_YANDEX_CLIENT_ID!,
+
+    VK_CLIENT_ID: process.env.NEXT_PUBLIC_OAUTH_VK_CLIENT_ID!,
+    VK_REDIRECT_URI: process.env.NEXT_PUBLIC_OAUTH_VK_REDIRECT_URI!,
+  },
+};
